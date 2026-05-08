@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Spend Audit | Credex</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="hero-section">
+        
+        <div class="header-content">
+            <h1>Stop Overpaying for AI Tools</h1> <p class="subheadline">
+                Analyze your stack in 2 minutes. Find cheaper alternatives, 
+                optimize seats, and cut your monthly bill by up to 40%.
+            </p> </div>
+    </header>
+
+    <main class="audit-container">
+     <section id="input-step" class="glass-card">
+    <form id="audit-form">
+        <div class="form-grid">
+            <div class="input-field">
+                <label for="team-size">Total Team Size</label>
+                <input type="number" id="team-size" placeholder="Total employees" required>
+            </div>
+            <div class="input-field">
+                <label for="use-case">Primary Use Case</label>
+                <select id="use-case" required>
+                    <option value="coding">Coding/Engineering</option>
+                    <option value="writing">Content/Writing</option>
+                    <option value="data">Data/Research</option>
+                    <option value="mixed">Mixed Usage</option>
+                </select>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="tools-header">
+            <h3>Your AI Stack</h3>
+            <p>Add tools like Cursor, Claude, ChatGPT, etc.</p>
+        </div>
+
+        <div id="dynamic-tool-list">
+            </div>
+
+        <div class="form-actions">
+            <button type="button" id="add-tool-btn" class="btn-secondary">+ Add Tool</button>
+            <button type="submit" class="btn-primary">Analyze My Spend</button>
+        </div>
+    </form>
+</section>
+        <section id="result-step" class="hidden">
+            <div class="savings-banner">
+                <div class="savings-card">
+                    <label>Monthly Savings</label>
+                    <h2 id="monthly-val">$0</h2>
+                </div>
+                <div class="savings-card highlight">
+                    <label>Annual Savings</label>
+                    <h2 id="annual-val">$0</h2>
+                </div>
+            </div>
+
+            <div class="ai-insight-box">
+                <h4>✨ AI Summary</h4>
+                <p id="ai-text">Analyzing your data...</p>
+            </div>
+
+            <div id="breakdown-list">
+                </div>
+
+            <div class="lead-box">
+                <h3>Save this report?</h3>
+                <p>We'll send the full PDF breakdown to your inbox.</p>
+                <form id="lead-form">
+                    <input type="email" placeholder="work@company.com" required>
+                    <button type="submit" class="btn-primary">Email Me the Report</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="social-proof">
+        <p>Trusted by founders at <strong>Y Combinator</strong> and <strong>Hacker News</strong> startups (Mocked).</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
