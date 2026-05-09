@@ -1,0 +1,26 @@
+{
+  "name": "credex-audit-tool",
+  "version": "1.0.0",
+  "description": "AI Spend Audit: An entrepreneurial tool built to help startups optimize their AI infrastructure costs and discover savings.",
+  "main": "app.js",
+  "directories": {
+    "test": "tests"
+  },
+ "scripts": {
+  "test": "jest"
+},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vinitagupta959/credex-audit-tool.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vinitagupta959/credex-audit-tool/issues"
+  },
+  "homepage": "https://github.com/vinitagupta959/credex-audit-tool#readme",
+  "devDependencies": {
+    "jest": "^30.4.2"
+  }
+}
