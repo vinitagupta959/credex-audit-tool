@@ -54,3 +54,8 @@ JavaScript Flow: Implement the core audit engine logic for calculating current v
 Results UI: Design a "screenshot-worthy" results section to visualize potential savings.
 
 Lead Storage: Set up the email capture system and integrate with Supabase/Firebase for secure storage.
+
+
+### Day 3
+Hours:0
+In my place have electricity issue whole day and internet issue beacuse or bad weather
