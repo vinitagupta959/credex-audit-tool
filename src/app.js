@@ -1,88 +1,189 @@
-const toolPricingData = {
-    "cursor": {
-        url: "https://cursor.com/pricing",
-        verified: "2026-05-08",
-        plans: {
-            "hobby": { price: 0, type: "individual" },
-            "pro": { price: 20, type: "individual" },
-            "pro-plus": { price: 60, type: "individual" },
-            "ultra": { price: 200, type: "individual" },
-            "teams": { price: 40, type: "per-seat" }
-        },
-        auditLogic: (seats, currentPlan) => {
-            if (seats <= 2 && currentPlan === "teams") {
-                return "Switch to Pro. Teams plan is overkill for < 3 users."; 
-            }
-            return null;
-        }
-    },
-    "chatgpt": {
-        url: "https://chatgpt.com/pricing",
-        verified: "2026-05-08",
-        plans: {
-            "free": { price: 0, type: "individual" },
-            "go": { price: 8, type: "individual" },
-            "plus": { price: 20, type: "individual" },
-            "pro": { price: 100, type: "individual" },
-            "business": { price: 20, type: "per-seat" }
-        },
-        auditLogic: (seats, currentPlan) => {
-            if (currentPlan === "pro" && seats === 1) {
-                return "Check if Plus ($20) covers your needs unless you need high-cap API access.";
-            }
-            return null;
-        }
-    },
-    "claude": {
-        url: "https://claude.com/pricing",
-        verified: "2026-05-08",
-        plans: {
-            "free": { price: 0, type: "individual" },
-            "pro": { price: 20, type: "individual" }, // Note: Annual $17 option
-            "max": { price: 100, type: "individual" },
-            "team-standard": { price: 25, type: "per-seat" },
-            "team-premium": { price: 125, type: "per-seat" }
-        },
-        auditLogic: (seats, currentPlan) => {
-            if (currentPlan === "team-standard" && seats < 5) {
-                return "Individual Pro accounts might be cheaper if team features aren't used.";
-            }
-            return null;
-        }
-    },
-    "copilot": {
-        url: "https://github.com/features/copilot/plans",
-        verified: "2026-05-08",
-        plans: {
-            "free": { price: 0, type: "individual" },
-            "pro": { price: 10, type: "individual" },
-            "pro-plus": { price: 39, type: "individual" },
-            "business": { price: 19, type: "per-seat" },
-            "enterprise": { price: 39, type: "per-seat" }
-        },
-        auditLogic: (seats, currentPlan) => {
-            if (currentPlan === "enterprise" && seats < 10) {
-                return "Consider Business plan ($19) unless you specifically need fine-tuned models.";
-            }
-            return null;
-        }
-    },
-    "gemini": {
-        url: "https://workspace.google.com/pricing",
-        verified: "2026-05-08",
-        plans: {
-            "base": { price: 1.20, type: "per-seat" }, // Approximate conversion from ₹99
-            "starter": { price: 3.25, type: "per-seat" }, // Approximate conversion from ₹270
-            "standard": { price: 10.40, type: "per-seat" } // Approximate conversion from ₹864
-        }
-    },
-    "v0": {
-        url: "https://v0.dev/pricing",
-        verified: "2026-05-08",
-        plans: {
-            "free": { price: 0, type: "individual" },
-            "team": { price: 30, type: "per-seat" },
-            "business": { price: 100, type: "per-seat" }
-        }
-    }
+const form = document.getElementById("audit-form");
+const tool = document.getElementById("tool");
+const plan = document.getElementById("plan");
+const spend = document.getElementById("spend");
+const seats = document.getElementById("seats");
+const teamSize = document.getElementById("teamSize");
+const useCase = document.getElementById("useCase");
+const addBtn =document.querySelector(".add-btn");
+const toolContainer =document.getElementById("tool-container");
+let toolCount = 1;
+let addedTools = [];
+const pricingData = {
+  chatgpt: {
+    free: 0,
+    go: 8,
+    plus: 20,
+    pro: 100,
+    business: 20
+  },
+  cursor: {
+    hobby: 0,
+    pro: 20,
+    proPlus: 60,
+    ultra: 200,
+    teams: 40
+  },
+  claude: {
+    free: 0,
+    pro: 20,
+    max: 100,
+    teamStandard: 25,
+    teamPremium: 125
+  },
+  githubCopilot: {
+    free: 0,
+    pro: 10,
+    proPlus: 39,
+    business: 19,
+    enterprise: 39
+  },
+  gemini: {
+    base: 99,
+    starter: 270,
+    standard: 864
+  },
+  v0: {
+    free: 0,
+    team: 30,
+    business: 100
+  }
 };
+
+const capabilities = {
+  coding: ["cursor", "github copilot", "chatgpt", "claude"],
+  writing: ["claude", "chatgpt", "gemini"],
+  research: ["chatgpt", "claude", "gemini"],
+};
+
+
+form.addEventListener("submit", function (event) {
+  event.preventDefault();
+
+  const auditData = {
+    tool: tool.value,
+    plan: plan.value,
+    spend: spend.value,
+    seats: seats.value,
+    teamSize: teamSize.value,
+    useCase: useCase.value,
+  };
+
+  console.log(auditData);
+});
+
+form.addEventListener("submit", function (event) {
+  event.preventDefault();
+
+  console.log("Form Submitted");
+});
+
+
+tool.addEventListener("change", function(){
+
+    const selectedTool = tool.value;
+
+    const plans =
+        pricingData[selectedTool];
+
+    plan.innerHTML = "";
+
+    for(let singlePlan in plans){
+
+        const option =
+            document.createElement("option");
+
+        option.value = singlePlan;
+
+        option.textContent =
+            `${singlePlan} ($${plans[singlePlan]})`;
+
+        plan.appendChild(option);
+
+    }
+
+});
+addBtn.addEventListener("click", function(){
+
+    toolCount++;
+
+    const toolCard =
+    document.createElement("div");
+
+    toolCard.classList.add("tool-card");
+
+    toolCard.innerHTML = `
+
+        <span class="tool-number">
+            TOOL ${toolCount}
+        </span>
+
+        <div class="input-group">
+
+            <label>Tool</label>
+
+            <select class="tool-select">
+
+                <option value="">
+                    Select Tool
+                </option>
+
+                <option value="chatgpt">
+                    ChatGPT
+                </option>
+
+                <option value="cursor">
+                    Cursor
+                </option>
+
+                <option value="claude">
+                    Claude
+                </option>
+
+                <option value="githubCopilot">
+                    GitHub Copilot
+                </option>
+
+                <option value="gemini">
+                    Gemini
+                </option>
+
+                <option value="v0">
+                    v0
+                </option>
+
+            </select>
+
+        </div>
+
+        <div class="input-group">
+
+            <label>Current plan</label>
+
+            <select class="plan-select">
+
+                <option>
+                    Select Plan
+                </option>
+
+            </select>
+
+        </div>
+
+        <div class="input-group">
+
+            <label>Number of seats</label>
+
+            <input
+                type="number"
+                class="seat-input"
+                placeholder="1"
+            >
+
+        </div>
+
+    `;
+
+    toolContainer.appendChild(toolCard);
+
+});

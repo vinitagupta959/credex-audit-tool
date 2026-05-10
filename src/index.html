@@ -1,93 +1,134 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AI Spend Audit | Credex</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
     <header class="hero-section">
-        
-        <div class="header-content">
-            <h1>Stop Overpaying for AI Tools</h1> <p class="subheadline">
-                Analyze your stack in 2 minutes. Find cheaper alternatives, 
-                optimize seats, and cut your monthly bill by up to 40%.
-            </p> </div>
+      <div class="header-content">
+        <h1>Stop Overpaying for AI Tools</h1>
+        <p class="subheadline">
+          Audit your AI stack in 60 seconds. Discover overspending, cheaper
+          alternatives, and save thousands a year.
+        </p>
+      </div>
     </header>
 
     <main class="audit-container">
-     <section id="input-step" class="glass-card">
-    <form id="audit-form">
-        <div class="form-grid">
-            <div class="input-field">
-                <label for="team-size">Total Team Size</label>
-                <input type="number" id="team-size" placeholder="Total employees" required>
-            </div>
-            <div class="input-field">
-                <label for="use-case">Primary Use Case</label>
-                <select id="use-case" required>
-                    <option value="coding">Coding/Engineering</option>
-                    <option value="writing">Content/Writing</option>
-                    <option value="data">Data/Research</option>
-                    <option value="mixed">Mixed Usage</option>
+      <section id="input-step" class="glass-card">
+        <form class="audit-form" id="audit-form">
+        
+            <div id="selected-tools"></div>
+            <div class="tool-card">
+              <span class="tool-number"> TOOL 1 </span>
+
+              <!-- TOOL -->
+              <div class="input-group">
+                <label>Tool</label>
+
+                <select id="tool">
+                  <option value="">Select Tool</option>
+                  <option value="chatgpt">ChatGPT</option>
+                  <option value="cursor">Cursor</option>
+                  <option value="claude">Claude</option>
+                  <option value="githubCopilot">GitHub Copilot</option>
+                  <option value="gemini">Gemini</option>
+                  <option value="v0">v0</option>
                 </select>
-            </div>
+              </div>
+
+              <!-- PLAN -->
+              <div class="input-group">
+                <label>Current plan</label>
+                <select id="plan">
+                  <option value="">Select Plan</option>
+                </select>
+              </div>
+
+              <!-- SPEND -->
+              <div class="input-group">
+                <label>Monthly spend (USD)</label>
+                <input type="number" id="spend" placeholder="5" />
+              </div>
+
+              <!-- SEATS -->
+              <div class="input-group">
+                <label>Number of seats</label>
+                <input type="number" id="seats" placeholder="1" />
+              </div>
+
+              <!-- TEAM -->
+              <div class="input-group">
+                <label>Team size</label>
+                <input type="number" id="teamSize" placeholder="1" />
+              </div>
+
+              <!-- USE CASE -->
+
+              <div class="input-group">
+                <label>Primary use case</label>
+                <select id="useCase">
+                  <option>Coding</option>
+                  <option>Writing</option>
+                  <option>Research</option>
+                  <option>Marketing</option>
+                </select>
+              </div>
+          </div>
+
+          <div class="button-group">
+            <button type="button" class="add-btn">+ Add another tool</button>
+
+            <button type="submit" class="run-btn">Run audit →</button>
+          </div>
+        </form>
+      </section>
+      <section id="result-step" class="hidden">
+        <div class="savings-banner">
+          <div class="savings-card">
+            <label>Monthly Savings</label>
+            <h2 id="monthly-val">$0</h2>
+          </div>
+          <div class="savings-card highlight">
+            <label>Annual Savings</label>
+            <h2 id="annual-val">$0</h2>
+          </div>
         </div>
 
-        <hr>
-
-        <div class="tools-header">
-            <h3>Your AI Stack</h3>
-            <p>Add tools like Cursor, Claude, ChatGPT, etc.</p>
+        <div class="ai-insight-box">
+          <h4>✨ AI Summary</h4>
+          <p id="ai-text">Analyzing your data...</p>
         </div>
 
-        <div id="dynamic-tool-list">
-            </div>
+        <div id="breakdown-list"></div>
 
-        <div class="form-actions">
-            <button type="button" id="add-tool-btn" class="btn-secondary">+ Add Tool</button>
-            <button type="submit" class="btn-primary">Analyze My Spend</button>
+        <div class="lead-box">
+          <h3>Save this report?</h3>
+          <p>We'll send the full PDF breakdown to your inbox.</p>
+          <form id="lead-form">
+            <input type="email" placeholder="work@company.com" required />
+            <button type="submit" class="btn-primary">
+              Email Me the Report
+            </button>
+          </form>
         </div>
-    </form>
-</section>
-        <section id="result-step" class="hidden">
-            <div class="savings-banner">
-                <div class="savings-card">
-                    <label>Monthly Savings</label>
-                    <h2 id="monthly-val">$0</h2>
-                </div>
-                <div class="savings-card highlight">
-                    <label>Annual Savings</label>
-                    <h2 id="annual-val">$0</h2>
-                </div>
-            </div>
-
-            <div class="ai-insight-box">
-                <h4>✨ AI Summary</h4>
-                <p id="ai-text">Analyzing your data...</p>
-            </div>
-
-            <div id="breakdown-list">
-                </div>
-
-            <div class="lead-box">
-                <h3>Save this report?</h3>
-                <p>We'll send the full PDF breakdown to your inbox.</p>
-                <form id="lead-form">
-                    <input type="email" placeholder="work@company.com" required>
-                    <button type="submit" class="btn-primary">Email Me the Report</button>
-                </form>
-            </div>
-        </section>
+      </section>
     </main>
 
     <footer class="social-proof">
-        <p>Trusted by founders at <strong>Y Combinator</strong> and <strong>Hacker News</strong> startups (Mocked).</p>
+      <p>
+        Trusted by founders at <strong>Y Combinator</strong> and
+        <strong>Hacker News</strong> startups (Mocked).
+      </p>
     </footer>
 
     <script src="app.js"></script>
-</body>
+  </body>
 </html>
